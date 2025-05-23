@@ -5,7 +5,9 @@ import org.example.homework2.dto.CreateScheduleResponseDto;
 import org.example.homework2.dto.ScheduleResponseDto;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -30,5 +32,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<ScheduleResponseDto> findScheduleByUpdatedAtAndAuthorName(String updatedAt, String authorName) {
         return scheduleRepository.findScheduleByUpdatedAtAndAuthorName(updatedAt, authorName);
+    }
+
+    @Override
+    public ScheduleResponseDto findScheduleById(Long id) {
+
+        return scheduleRepository.findScheduleById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

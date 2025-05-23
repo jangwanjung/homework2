@@ -49,6 +49,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return result;
     }
 
+    @Override
+    public Optional<ScheduleResponseDto> findScheduleById(Long id) {
+        List<ScheduleResponseDto> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleMapper(), id);
+        return result.stream().findAny();
+    }
+
     private RowMapper<ScheduleResponseDto> scheduleMapper() {
         return new RowMapper<ScheduleResponseDto>() {
             @Override
@@ -63,4 +69,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
             }
         };
     }
+
+
 }

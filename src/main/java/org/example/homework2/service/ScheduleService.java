@@ -12,4 +12,6 @@ public interface ScheduleService {
     CreateScheduleResponseDto saveSchedule(CreateScheduleRequestDto dto);
 
     List<ScheduleResponseDto> findScheduleByUpdatedAtAndAuthorName(String updatedAt, String authorName);
+
+    ScheduleResponseDto findScheduleById(Long id);
 }
