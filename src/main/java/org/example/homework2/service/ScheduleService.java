@@ -1,9 +1,6 @@
 package org.example.homework2.service;
 
-import org.example.homework2.dto.CreateScheduleRequestDto;
-import org.example.homework2.dto.CreateScheduleResponseDto;
-import org.example.homework2.dto.ScheduleResponseDto;
-import org.example.homework2.dto.UpdateScheduleRequestDto;
+import org.example.homework2.dto.*;
 import org.example.homework2.entity.Schedule;
 
 import java.util.List;
@@ -18,4 +15,6 @@ public interface ScheduleService {
     ScheduleResponseDto findScheduleById(Long id);
 
     ScheduleResponseDto updateSchedule(UpdateScheduleRequestDto dto);
+
+    void deleteSchedule(DeleteScheduleRequestDto dto);
 }

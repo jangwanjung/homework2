@@ -1,6 +1,7 @@
 package org.example.homework2.repository;
 
 import org.example.homework2.dto.CreateScheduleResponseDto;
+import org.example.homework2.dto.DeleteScheduleRequestDto;
 import org.example.homework2.dto.ScheduleResponseDto;
 import org.example.homework2.dto.UpdateScheduleRequestDto;
 import org.example.homework2.entity.Schedule;
@@ -65,6 +66,11 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     public Optional<String> findPasswordById(Long id) {
         List<String> result = jdbcTemplate.query("select password from schedule where id = ?", passwordMapper(), id);
         return result.stream().findAny();
+    }
+
+    @Override
+    public int deleteSchedule(Long id) {
+        return jdbcTemplate.update("delete from schedule where id = ?", id);
     }
 
     private RowMapper<String> passwordMapper() {

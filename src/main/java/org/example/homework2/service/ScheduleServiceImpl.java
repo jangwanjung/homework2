@@ -1,9 +1,6 @@
 package org.example.homework2.service;
 
-import org.example.homework2.dto.CreateScheduleRequestDto;
-import org.example.homework2.dto.CreateScheduleResponseDto;
-import org.example.homework2.dto.ScheduleResponseDto;
-import org.example.homework2.dto.UpdateScheduleRequestDto;
+import org.example.homework2.dto.*;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
@@ -56,5 +53,22 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+ dto.getId());
         }
 
-        return scheduleRepository.findScheduleById(dto.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));    }
+        return scheduleRepository.findScheduleById(dto.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public void deleteSchedule(DeleteScheduleRequestDto dto) {
+
+        String password = scheduleRepository.findPasswordById(dto.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (!password.equals(dto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        int deletedRow = scheduleRepository.deleteSchedule(dto.getId());
+
+        if (deletedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+ dto.getId());
+        }
+    }
 }

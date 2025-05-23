@@ -1,10 +1,7 @@
 package org.example.homework2.controller;
 
 import org.apache.coyote.Response;
-import org.example.homework2.dto.CreateScheduleRequestDto;
-import org.example.homework2.dto.CreateScheduleResponseDto;
-import org.example.homework2.dto.ScheduleResponseDto;
-import org.example.homework2.dto.UpdateScheduleRequestDto;
+import org.example.homework2.dto.*;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.service.ScheduleService;
 import org.springframework.http.HttpStatus;
@@ -49,5 +46,14 @@ public class ScheduleController {
         dto.setId(id);
         return new ResponseEntity<>(scheduleService.updateSchedule(dto), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id, @RequestBody DeleteScheduleRequestDto dto) {
+        dto.setId(id);
+        scheduleService.deleteSchedule(dto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 
 }
