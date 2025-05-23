@@ -2,6 +2,7 @@ package org.example.homework2.repository;
 
 import org.example.homework2.dto.CreateScheduleResponseDto;
 import org.example.homework2.dto.ScheduleResponseDto;
+import org.example.homework2.dto.UpdateScheduleRequestDto;
 import org.example.homework2.entity.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -53,6 +54,26 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     public Optional<ScheduleResponseDto> findScheduleById(Long id) {
         List<ScheduleResponseDto> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleMapper(), id);
         return result.stream().findAny();
+    }
+
+    @Override
+    public int updateSchedule(UpdateScheduleRequestDto dto) {
+        return jdbcTemplate.update("update schedule set task = ?, author_name = ? where id = ?", dto.getTask(), dto.getAuthor_name(),dto.getId());
+    }
+
+    @Override
+    public Optional<String> findPasswordById(Long id) {
+        List<String> result = jdbcTemplate.query("select password from schedule where id = ?", passwordMapper(), id);
+        return result.stream().findAny();
+    }
+
+    private RowMapper<String> passwordMapper() {
+        return new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getString("password");
+            }
+        };
     }
 
     private RowMapper<ScheduleResponseDto> scheduleMapper() {

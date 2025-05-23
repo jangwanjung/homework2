@@ -3,6 +3,7 @@ package org.example.homework2.service;
 import org.example.homework2.dto.CreateScheduleRequestDto;
 import org.example.homework2.dto.CreateScheduleResponseDto;
 import org.example.homework2.dto.ScheduleResponseDto;
+import org.example.homework2.dto.UpdateScheduleRequestDto;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
@@ -39,4 +40,21 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return scheduleRepository.findScheduleById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+    @Override
+    public ScheduleResponseDto updateSchedule(UpdateScheduleRequestDto dto) {
+
+        String password = scheduleRepository.findPasswordById(dto.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (!password.equals(dto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        int updatedRow = scheduleRepository.updateSchedule(dto);
+
+        if (updatedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+ dto.getId());
+        }
+
+        return scheduleRepository.findScheduleById(dto.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));    }
 }

@@ -1,8 +1,10 @@
 package org.example.homework2.controller;
 
+import org.apache.coyote.Response;
 import org.example.homework2.dto.CreateScheduleRequestDto;
 import org.example.homework2.dto.CreateScheduleResponseDto;
 import org.example.homework2.dto.ScheduleResponseDto;
+import org.example.homework2.dto.UpdateScheduleRequestDto;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.service.ScheduleService;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,12 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
 
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequestDto dto) {
+        dto.setId(id);
+        return new ResponseEntity<>(scheduleService.updateSchedule(dto), HttpStatus.OK);
     }
 
 }
