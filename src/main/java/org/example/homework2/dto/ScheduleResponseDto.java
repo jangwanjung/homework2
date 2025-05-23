@@ -1,7 +1,12 @@
 package org.example.homework2.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.sql.Timestamp;
 
+@AllArgsConstructor
+@Getter
 public class ScheduleResponseDto {
 
     private Long id;

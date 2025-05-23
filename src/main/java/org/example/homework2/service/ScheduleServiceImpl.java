@@ -7,6 +7,10 @@ import org.example.homework2.entity.Schedule;
 import org.example.homework2.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
@@ -21,5 +25,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         Schedule schedule = new Schedule(dto.getTask(),dto.getAuthor_name(),dto.getPassword());
         return scheduleRepository.saveSchedule(schedule);
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleByUpdatedAtAndAuthorName(String updatedAt, String authorName) {
+        return scheduleRepository.findScheduleByUpdatedAtAndAuthorName(updatedAt, authorName);
     }
 }

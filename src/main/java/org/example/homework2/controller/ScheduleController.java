@@ -2,14 +2,15 @@ package org.example.homework2.controller;
 
 import org.example.homework2.dto.CreateScheduleRequestDto;
 import org.example.homework2.dto.CreateScheduleResponseDto;
+import org.example.homework2.dto.ScheduleResponseDto;
 import org.example.homework2.entity.Schedule;
 import org.example.homework2.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/schedules")
@@ -25,6 +26,14 @@ public class ScheduleController {
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(@RequestBody CreateScheduleRequestDto dto) {
 
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(
+            @RequestParam(required = false) String updated_at,
+            @RequestParam(required = false) String author_name) {
+        return new ResponseEntity<>(scheduleService.findScheduleByUpdatedAtAndAuthorName(updated_at,author_name), HttpStatus.OK);
+
     }
 
 }
