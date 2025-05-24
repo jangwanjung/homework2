@@ -27,7 +27,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
 
     @Override
-    public CreateScheduleResponseDto saveSchedule(Schedule schedule) {
+    public ScheduleResponseDto saveSchedule(Schedule schedule) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("schedule")
                 .usingGeneratedKeyColumns("id")
@@ -38,10 +38,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         parameters.put("author_name", schedule.getAuthor_name());
         parameters.put("password", schedule.getPassword());
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        System.out.println(key.longValue());
-        return new CreateScheduleResponseDto(key.longValue(),
-                schedule.getTask(),
-                schedule.getAuthor_name());
+
+        return findScheduleById(key.longValue()).orElseThrow(()->new RuntimeException("Schedule not found"));
     }
 
     @Override

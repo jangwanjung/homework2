@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ScheduleRepository {
 
-    CreateScheduleResponseDto saveSchedule(Schedule schedule);
+    ScheduleResponseDto saveSchedule(Schedule schedule);
 
     List <ScheduleResponseDto> findScheduleByUpdatedAtAndAuthorName(String updatedAt, String authorName);
 

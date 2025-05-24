@@ -22,7 +22,7 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateScheduleResponseDto> createSchedule(@RequestBody CreateScheduleRequestDto dto) {
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody CreateScheduleRequestDto dto) {
 
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
@@ -35,8 +35,8 @@ public class ScheduleController {
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
+    @GetMapping(params = "id")
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(@RequestParam Long id) {
 
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ScheduleService {
 
-    CreateScheduleResponseDto saveSchedule(CreateScheduleRequestDto dto);
+    ScheduleResponseDto saveSchedule(CreateScheduleRequestDto dto);
 
     List<ScheduleResponseDto> findScheduleByUpdatedAtAndAuthorName(String updatedAt, String authorName);
 
