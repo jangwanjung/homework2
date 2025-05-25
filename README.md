@@ -5,3 +5,5 @@
 | 선택 일정 조회 | GET     | /schedules?schedule_id={schedule_id}                  |                                                                   | 	{"id" : Long, "task" : "String", "author_name" : "String", "created_id" : "YYYY-MM-DD", "updated_id" : "YYYY-MM-DD"}	  | 	200: 정상 조회 |
 | 일정 수정    | PATCH   | /schedules/{schedule_id}                              | {"task" : String, "author_name" : String, "password" : String}	   | {"id" : Long, "task" : "String", "author_name" : "String", "created_id" : "YYYY-MM-DD", "updated_id" : "YYYY-MM-DD"}    | 200: 정상 수정 |
 | 일정 삭제    | DELETE  | /schedules/{schedule_id}                              | {"password" : String}                                             |                                                                                                                         | 204: 정상 삭제 |
+
+![img.png](img.png)
